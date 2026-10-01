@@ -1,0 +1,26 @@
+# HR Management System — Apache configuration
+Options -Indexes
+DirectoryIndex index.php index.html
+
+# Protect configuration, SQL dumps and seed data
+<FilesMatch "\.(sql|json|log|md)$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</FilesMatch>
+
+# Never execute PHP inside the uploads folder
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule ^uploads/.*\.(php|phtml|phar)$ - [F,L]
+</IfModule>
+
+# Sensible upload limit hints (the host setting always wins)
+<IfModule mod_php.c>
+  php_value upload_max_filesize 8M
+  php_value post_max_size 10M
+</IfModule>
