@@ -1,0 +1,5 @@
+# RED THUNDER - Lock the includes/ directory from being rewritten over HTTP
+<FilesMatch "\.(php|css|js)$">
+  Require all denied
+</FilesMatch>
+php_flag engine off
